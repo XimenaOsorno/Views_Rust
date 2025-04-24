@@ -12,3 +12,11 @@ pub async fn create(req: HttpRequest) -> String {
     process_input(item, "create".to_string(), &state);// step 4
     return format!("{} created", title); // step 5
 }
+
+pub async fn create_done(req: HttpRequest) -> String {
+    let state: Map<String, Value> = read_file("./state.json"); // step 1
+    let title: String = req.match_info().get("title").unwrap().to_string(); // step 2
+    let item = to_do_factory(&title.as_str(), TaskStatus::DONE); // step 3
+    process_input(item, "create".to_string(), &state);// step 4
+    return format!("{} created Done", title); // step 5
+}
